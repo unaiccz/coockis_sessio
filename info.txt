@@ -1,0 +1,9 @@
+app de inicio de sesion
+index.php:
+formulario , si esta la session iniciada mopstrar su nombre`form con check recordar => alargar tiempo 7dias,
+header() coockie 1min`
+bienvenida.php:
+solo acessible cuando sesion activa
+y mostrar tiempo restante
+mostrar nombre
+logaut.php??
