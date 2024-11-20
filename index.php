@@ -11,6 +11,8 @@
     <form action="index.php" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
+        <label for="remember">Remember me:</label>
+        <input type="checkbox" id="remember" name="remember">
         <input type="submit" value="Submit">
     </form>
     <div id="counter">-</div>
@@ -19,6 +21,10 @@
     session_start();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
+        $remember = $_POST['remember'];
+        if ($remember){
+            setcookie('username', $username, time() + (7 * 24 * 60 * 60));
+        }
         setcookie('username', $username, time() + 60);
         $_SESSION['active'] = true;
         header('Location: bienvenida.php');
