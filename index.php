@@ -19,19 +19,38 @@
     <!-- codigo php -->
     <?php
     session_start();
+    $post_submitted = false;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
-        $remember = $_POST['remember'];
-        if ($remember){
+        $remember = isset($_POST['remember']);
+        if ($remember) {
             setcookie('username', $username, time() + (7 * 24 * 60 * 60));
+        } else {
+            setcookie('username', $username, time() + 60);
         }
-        setcookie('username', $username, time() + 60);
         $_SESSION['active'] = true;
+        $post_submitted = true;
         header('Location: bienvenida.php');
         exit();
     }
     ?>
     <!-- codigo js -->
-   
+    <script>
+        function mostrar_s(n) {
+            var counter = n;
+            var interval = setInterval(function() {
+                document.getElementById('counter').innerText = counter;
+                counter--;
+                if (counter < 0) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        // Iniciar el contador si se ha hecho un POST
+        <?php if ($post_submitted): ?>
+            mostrar_s(60);
+        <?php endif; ?>
+    </script>
 </body>
 </html>
